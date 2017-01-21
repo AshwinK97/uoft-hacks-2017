@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Anime Find</title>
+    <title>Movie Finder</title>
 
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -15,51 +16,51 @@
     <div class="background-image"></div>
     <div id="container" class="content">
         <div id="titleBack">
-            <h1 id="mainTitle">Anime Find</h1>
+            <h1 id="mainTitle">Movie Finder</h1>
         </div>
-        <div><input type="text" name="search" placeholder="Search.."></div>
+        <div>
+            <input id="searchBar" type="text" name="search" placeholder="Search..">
+            <button id="btn1" type="button" onclick="getQuery()" class="btn btn-md btn-primary" href="templates/home.html"> Find </button>
+            <!-- <button id="btn2" type="button" onclick="" class="btn btn-xs btn-warning" href="templates/home.html"> I Want More! </button> -->
+        </div>
 
-        <p id="results">
+        <table id="results">
 
-        </p>
+        </table>
 
     </div>
 
     <script>
-        // var data = "{}";
-        //
-        // var xhr = new XMLHttpRequest();
-        // xhr.withCredentials = true;
-        //
-        // xhr.addEventListener("readystatechange", function() {
-        //     if (this.readyState === this.DONE) {
-        //         // alert(this.responseText);
-        //     }
-        // });
-        //
-        // xhr.open("GET", "https://api.themoviedb.org/3/search/movie?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&query=avatar&page=1&include_adult=false");
-        // xhr.send(data);
-        //
-        // document.getElementById("results").innerHTML = xhr;
-        // // document.getElementById("results").innerHTML = xhr.responseText().getElementsByTagName("original_title")[0].value;
-
+        var query;
+        var url;
         var xmlhttp;
-        if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for older browsers
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+        function getQuery() {
+            query = document.getElementById("searchBar").value;
+            url = "https://api.themoviedb.org/3/search/movie?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&query=" + query + "&page=1&include_adult=false";
+            // url = "https://api.themoviedb.org/3/search/movie?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&query=avatar&page=1&include_adult=false";
+            queryDatabase(url);
+            // window.alert("you typed " + query);
         }
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                var jsonObj = JSON.parse(this.responseText);
-                document.getElementById("results").innerHTML = "You searched for " + jsonObj.results[0].original_title + "!";
+
+        function queryDatabase(url) {
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                // code for older browsers
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
             }
-        };
-        // change the value of query with the search
-        // for querys with spaces, use %20 for each " "
-        xmlhttp.open("GET", "https://api.themoviedb.org/3/search/movie?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&query=transformers&page=1&include_adult=false", true);
-        xmlhttp.send();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var jsonObj = JSON.parse(this.responseText);
+                    document.getElementById("results").innerHTML = "You searched for " + jsonObj.results[0].original_title;
+                }
+            };
+            // change the value of query with the search
+            // for querys with spaces, use %20 for each " "
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+        }
     </script>
 </body>
 

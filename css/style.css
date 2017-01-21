@@ -30,8 +30,7 @@ input[type=text]:focus {
     right: 0;
     z-index: 1;
     display: block;
-    /*background-image: url("http://img03.deviantart.net/5adf/i/2014/357/5/9/anime_collage_wallpaper_by_dinocojv-d8ayeyz.jpg");*/
-    background-image: url("http://orig12.deviantart.net/184f/f/2015/116/e/b/anime_wallpaper_attempt__update__by_randyadr-d88kgx3.jpg");
+    background-image: url("../res/background.jpg");
     width: 100%;
     height: 100%;
     /*-webkit-filter: opacity(50%);*/
@@ -39,7 +38,7 @@ input[type=text]:focus {
     -o-filter: blur(5px);
     -ms-filter: blur(5px);*/
     /*-webkit-filter: blur(5px);*/
-    filter: opacity(80%) blur(10px);
+    filter: opacity(80%) blur(7px);
 }
 
 .content {
