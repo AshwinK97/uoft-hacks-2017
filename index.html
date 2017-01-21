@@ -52,11 +52,13 @@
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("results").innerHTML =
-                    this.responseText;
-            }s
+                var jsonObj = JSON.parse(this.responseText);
+                document.getElementById("results").innerHTML = "You searched for " + jsonObj.results[0].original_title + "!";
+            }
         };
-        xmlhttp.open("GET", "https://api.themoviedb.org/3/search/movie?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&query=avatar&page=1&include_adult=false", true);
+        // change the value of query with the search
+        // for querys with spaces, use %20 for each " "
+        xmlhttp.open("GET", "https://api.themoviedb.org/3/search/movie?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&query=transformers&page=1&include_adult=false", true);
         xmlhttp.send();
     </script>
 </body>
