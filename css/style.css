@@ -1,0 +1,60 @@
+div {
+    text-align: center;
+}
+
+input[type=text] {
+    width: 15%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('../res/searchicon.png');
+    background-position: 0px 2px;
+    background-size: 35px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.5s ease-in-out;
+}
+
+input[type=text]:focus {
+    background-image: none;
+    width: 50%;
+    padding: 12px 20px 12px 12px;
+}
+
+.background-image {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: block;
+    /*background-image: url("http://img03.deviantart.net/5adf/i/2014/357/5/9/anime_collage_wallpaper_by_dinocojv-d8ayeyz.jpg");*/
+    background-image: url("http://orig12.deviantart.net/184f/f/2015/116/e/b/anime_wallpaper_attempt__update__by_randyadr-d88kgx3.jpg");
+    width: 100%;
+    height: 100%;
+    /*-webkit-filter: opacity(50%);*/
+    /*-moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);*/
+    /*-webkit-filter: blur(5px);*/
+    filter: opacity(80%) blur(10px);
+}
+
+.content {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}
+
+#container {
+    padding-top: 15%;
+}
+
+#mainTitle {
+    font-family: "Goudy Old Style", Garamond, "Big Caslon", "Times New Roman", serif;
+    font-size: 500%;
+    color: black;
+}
