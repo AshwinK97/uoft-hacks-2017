@@ -81,30 +81,6 @@
 
         <div><input type="text" name="search" placeholder="Search.."></div>
     </div>
-
-    <div id="test">empty</div>
-
-    <script type="text/javascript">
-        var result;
-
-        function xmlparser() {
-            $.ajax({
-                type: "GET",
-                url: "https://myanimelist.net/malappinfo.php?u=Kotsauce&status=all&type=anime",
-                dataType: "xml",
-                success: function(xml) {
-                    result = $(xml).find("user_name").text();
-                    document.getElementById("test").innerHTML = result;
-                },
-                error: function(xml) {
-                    document.getElementById("test").innerHTML = "error";
-                    alert(xml.status + ' ' + xml.statusText);
-                }
-            });
-        }
-
-        xmlparser();
-    </script>
 </body>
 
 </html>
