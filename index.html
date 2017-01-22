@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Watch this</title>
+    <title>Watch this!</title>
 
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -16,27 +15,19 @@
     <div class="background-image"></div>
     <div id="container" class="content">
         <div id="titleBack">
-            <h1 id="mainTitle">Watch this!</h1>
+            <img src="res/Logo.png" alt="Watch this!" />
         </div>
+        <hr id="spacer">
         <div id="search">
-            <input id="searchBar" type="text" name="search" placeholder="What do you like?">
-            <button id="btn1" type="button" onclick="getQuery()" class="btn btn-md btn-primary" href="templates/home.html"> Find </button>
+            <input id="searchBar" type="text" name="search" placeholder="What do you like?" onkeypress="handle(e)"><br>
+            Anime/TV <input type="radio" id="show" name="media" value="show" checked="checked"> | Movie <input type="radio" id="movie" name="media" value="movie">
         </div>
+
+        <hr id="spacer">
 
         <div id="recommendations">
             <table id="results">
-                <tr>
-                    <th>Name</th>
-                    <th>Date aired</th>
-                </tr>
-                <tr>
-                    <td>Batman vs Superman: Dawn of justice</td>
-                    <td>2016</td>
-                </tr>
-                <tr>
-                    <td>Captian America: civil war</td>
-                    <td>2015</td>
-                </tr>
+                <!-- returned recommendations go here -->
             </table>
         </div>
 
@@ -47,13 +38,32 @@
         var url;
         var xmlhttp;
 
+        document.getElementById("searchBar")
+            .addEventListener("keyup", function(event) {
+                event.preventDefault();
+                if (event.keyCode == 13) {
+                    // document.getElementById("btn1").click();
+                    getQuery();
+                }
+            });
+
         function getQuery() {
             query = document.getElementById("searchBar").value;
-            url = "https://api.themoviedb.org/3/search/movie?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&query=" + query + "&page=1&include_adult=false";
-            queryDatabase(url);
+
+            if (document.getElementById("show").checked) {
+                url = "https://api.themoviedb.org/3/search/tv?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&query=" + query + "&page=1"; // checked tvshows
+                queryShow(url);
+            } else if (document.getElementById("movie").checked) {
+                url = "https://api.themoviedb.org/3/search/movie?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&query=" + query + "&page=1&include_adult=false"; // checked movies
+                queryMovie(url);
+            }
         }
 
-        function queryDatabase(url) {
+        function queryGenres() {
+
+        }
+
+        function queryShow(url) {
             if (window.XMLHttpRequest) {
                 xmlhttp = new XMLHttpRequest();
             } else {
@@ -64,18 +74,62 @@
                 if (this.readyState == 4 && this.status == 200) {
                     var jsonObj = JSON.parse(this.responseText);
 
-                    var tableString = "";
-                    for (var i=0; i<jsonObj.results.length; i++) {
-                        tableString += "<tr>";
-                        tableString += "<td>" + jsonObj.results[i].title + "</td>";
-                        if (jsonObj.results[i].release_date == "") {
-                            tableString += "<td> N/A </td>";
+                    var tableString = "<tr><th>Name</th><th>Date aired</th><th>Rating</th></tr>";
+                    for (var i = 0; i < jsonObj.results.length; i++) {
+                        if (jsonObj.results[i].name != "") {
+                            tableString += "<tr>";
+                            tableString += "<td>" + jsonObj.results[i].name + "</td>"; // title
+                            if (jsonObj.results[i].first_air_date == "") {
+                                tableString += "<td> N/A </td>";
+                            } else {
+                                tableString += "<td>" + jsonObj.results[i].first_air_date + "</td>"; // release date
+                            }
+                            if (jsonObj.results[i].vote_average == 0) {
+                                tableString += "<td> N/A </td>";
+                            } else {
+                                tableString += "<td>" + jsonObj.results[i].vote_average + "</td>"; // rating
+                            }
+                            tableString += "</tr>";
                         }
-                        tableString += "<td>" + jsonObj.results[i].release_date + "</td>";
-                        tableString += "</tr>";
                     }
                     document.getElementById("results").innerHTML = tableString;
+                }
+            };
+            // for querys with spaces, use %20 for each " "
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+        }
 
+        function queryMovie(url) {
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                // code for older browsers
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var jsonObj = JSON.parse(this.responseText);
+
+                    var tableString = "<tr><th>Name</th><th>Date aired</th><th>Rating</th></tr>";
+                    for (var i = 0; i < jsonObj.results.length; i++) {
+                        if (jsonObj.results[i].title != "") {
+                            tableString += "<tr>";
+                            tableString += "<td>" + jsonObj.results[i].title + "</td>"; // title
+                            if (jsonObj.results[i].release_date == "") {
+                                tableString += "<td> N/A </td>";
+                            } else {
+                                tableString += "<td>" + jsonObj.results[i].release_date + "</td>"; // release date
+                            }
+                            if (jsonObj.results[i].vote_average == 0) {
+                                tableString += "<td> N/A </td>";
+                            } else {
+                                tableString += "<td>" + jsonObj.results[i].vote_average + "</td>"; // rating
+                            }
+                            tableString += "</tr>";
+                        }
+                    }
+                    document.getElementById("results").innerHTML = tableString;
                 }
             };
             // for querys with spaces, use %20 for each " "

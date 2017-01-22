@@ -6,6 +6,7 @@ table {
     border: 1px solid black;
     border-collapse: collapse;
     text-align: center;
+    background-color: lightblue;
 }
 th {
     border: 1px solid black;
@@ -70,4 +71,8 @@ input[type=text]:focus {
     font-family: "Goudy Old Style", Garamond, "Big Caslon", "Times New Roman", serif;
     font-size: 500%;
     color: black;
+}
+
+#spacer {
+    visibility: hidden;
 }
