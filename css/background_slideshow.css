@@ -37,7 +37,7 @@
 }
 
 .cb-slideshow li:nth-child(1) span {
-    background-image: url(../res/background.jpg);
+    background-image: url(../res/background5.jpg);
 }
 .cb-slideshow li:nth-child(2) span {
     background-image: url(../res/background2.jpg);
@@ -52,7 +52,7 @@
     animation-delay: 24s;
 }
 .cb-slideshow li:nth-child(5) span {
-    background-image: url(../res/background5.jpg);
+    background-image: url(../res/background6.jpg);
     animation-delay: 32s;
 }
 

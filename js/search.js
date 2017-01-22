@@ -16,15 +16,51 @@ function getQuery() {
 
     if (document.getElementById("show").checked) {
         url = "https://api.themoviedb.org/3/search/tv?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&query=" + query + "&page=1"; // checked tvshows
-        queryGenres(url);
     } else if (document.getElementById("movie").checked) {
         url = "https://api.themoviedb.org/3/search/movie?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&query=" + query + "&page=1&include_adult=false"; // checked movies
-        queryGenres(url);
     }
+    queryGenres(url);
+}
+
+function queryDiscover(url) {
+
+    // console.log(url);
 }
 
 function queryGenres(url) {
-    
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for older browsers
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var jsonObj = JSON.parse(this.responseText);
+            var genres = [];
+            for (var i = 0; i < jsonObj.results.length; i++) { // loop through all genres
+                for (var j = 0; j < jsonObj.results[i].genre_ids.length; j++) {
+                    if (jsonObj.results[i].genre_ids[j] != 'undefined')
+                        genres.push(jsonObj.results[i].genre_ids[j]); // store genres in array
+                }
+            }
+            genres = genres.filter(function(item, index, inputArray) { // remove duplicates from genres array
+                return inputArray.indexOf(item) == index;
+            });
+            // console.log(genres.toString());
+            if (document.getElementById("show").checked) {
+                url = "https://api.themoviedb.org/3/discover/tv?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&sort_by=popularity.desc&page=1&timezone=America/New_York&with_genres=" + genres.toString() + "&include_null_first_air_dates=false";
+                queryShow(url);
+            } else if (document.getElementById("movie").checked) {
+                console.log(genres.toString());
+                url = "https://api.themoviedb.org/3/discover/movie?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=" + genres.toString();
+                queryMovie(url);
+            }
+        }
+    };
+    // for querys with spaces, use %20 for each " "
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
 }
 
 function queryShow(url) {
