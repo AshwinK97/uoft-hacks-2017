@@ -1,6 +1,7 @@
 div {
     text-align: center;
 }
+
 table {
     margin: 0 auto;
     border: 1px solid black;
@@ -8,13 +9,13 @@ table {
     text-align: center;
     background-color: lightblue;
 }
+
 th {
     border: 1px solid black;
-    /*text-align: center;*/
 }
+
 td {
     border: 1px solid black;
-    /*text-align: center;*/
 }
 
 input[type=text] {
@@ -39,23 +40,6 @@ input[type=text]:focus {
     padding: 12px 20px 12px 12px;
 }
 
-.background-image {
-    position: fixed;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    display: block;
-    background-image: url("../res/background2.jpg");
-    width: 100%;
-    height: 100%;
-    /*-webkit-filter: opacity(50%);*/
-    /*-moz-filter: blur(5px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);*/
-    /*-webkit-filter: blur(5px);*/
-    filter: opacity(80%) blur(9px);
-}
-
 .content {
     position: fixed;
     left: 0;
@@ -65,12 +49,6 @@ input[type=text]:focus {
 
 #container {
     padding-top: 15%;
-}
-
-#mainTitle {
-    font-family: "Goudy Old Style", Garamond, "Big Caslon", "Times New Roman", serif;
-    font-size: 500%;
-    color: black;
 }
 
 #spacer {
