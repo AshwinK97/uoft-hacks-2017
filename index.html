@@ -30,12 +30,19 @@
         <hr id="spacer">
         <div id="search">
             <input id="searchBar" type="text" name="search" placeholder="What do you watch?" onkeypress="handle(e)"><br>
-            <p id="choices"><b>Anime/TVshow <input type="radio" id="show" name="media" value="show" checked="checked"> Movie <input type="radio" id="movie" name="media" value="movie"></b></p>
+            <b id="choices">Anime/TVshow <input type="radio" id="show" name="media" value="show" checked="checked"> Movie <input type="radio" id="movie" name="media" value="movie"></b>
+            <select id="accuracy">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
         </div>
 
         <hr id="spacer">
 
-        <div id="recommendations" style="overflow:auto">
+        <div id="recommendations">
             <table id="results">
                 <!-- returned recommendations go here -->
             </table>
