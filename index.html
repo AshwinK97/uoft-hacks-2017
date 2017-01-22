@@ -7,13 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Watch this!</title>
 
-    <link rel="stylesheet" type="text/css" href="css/background_slideshow.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/background_slideshow.css">
 </head>
 
 <body>
 
-    <div class="background-image"></div>
     <ul class="cb-slideshow">
         <li><span></span></li>
         <li><span></span></li>
@@ -21,7 +21,9 @@
         <li><span></span></li>
         <li><span></span></li>
     </ul>
-    <div id="container" class="content" style="overflow:auto;">
+    <div class="background-image"></div>
+
+    <div id="container" class="content">
         <div id="titleBack">
             <img src="res/Logo.png" alt="Watch this!" />
         </div>
@@ -29,12 +31,11 @@
         <div id="search">
             <input id="searchBar" type="text" name="search" placeholder="What do you watch?" onkeypress="handle(e)"><br>
             <p id="choices"><b>Anime/TVshow <input type="radio" id="show" name="media" value="show" checked="checked"> Movie <input type="radio" id="movie" name="media" value="movie"></b></p>
-            
         </div>
 
         <hr id="spacer">
 
-        <div id="recommendations">
+        <div id="recommendations" style="overflow:auto">
             <table id="results">
                 <!-- returned recommendations go here -->
             </table>

@@ -1,7 +1,7 @@
 var query;
 var url;
 var xmlhttp;
-var accuracy;
+var accuracy = 5;
 
 document.getElementById("searchBar")
     .addEventListener("keyup", function(event) {
@@ -55,11 +55,11 @@ function queryGenres(url) {
             }
             if (document.getElementById("show").checked) {
                 url = "https://api.themoviedb.org/3/discover/tv?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&sort_by=popularity.desc&page=1&timezone=America/New_York&with_genres=" + toUseGenres.toString() + "&include_null_first_air_dates=false";
-                console.log(url);
+                // console.log(url);
                 queryShow(url);
             } else if (document.getElementById("movie").checked) {
                 url = "https://api.themoviedb.org/3/discover/movie?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=" + toUseGenres.toString();
-                console.log(url);
+                // console.log(url);
                 queryMovie(url);
             }
         }

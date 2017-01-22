@@ -2,24 +2,48 @@ div {
     text-align: center;
 }
 
+ul{
+  list-style-type: none;
+}
+
 table {
     margin: 0 auto;
-    border: 1px solid black;
+    border: 0px solid black;
     border-collapse: collapse;
     text-align: center;
-    background-color: lightblue;
+    background-color: #e0e0eb;
+    width: 60%;
+  }
+
+thead, tbody { display: block; }
+
+tbody {
+    height: 200px;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
 }
 
 th {
     border: 1px solid black;
+    text-align: center;
+    background-color: #1a1a1a;
+    color: white;
 }
 
 td {
     border: 1px solid black;
 }
 
+tbody td, thead th {
+    width: 20%;
+}
+
+tr:hover{
+  background-color: #a09fd7;
+}
+
 input[type=text] {
-    width: 15%;
+    width: 25%;
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 4px;
@@ -41,7 +65,7 @@ input[type=text]:focus {
 }
 
 .content {
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
     z-index: 9999;
