@@ -82,7 +82,12 @@ input[type=text]:focus {
 #spacer {
     visibility: hidden;
 }
-#choices {
-    color: darkred;
+.choices {
+    color: red;
+}
+#options {
     padding-right: 13.5%;
+}
+#footer {
+    color: black;
 }
