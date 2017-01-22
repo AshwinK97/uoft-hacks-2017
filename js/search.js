@@ -1,6 +1,7 @@
 var query;
 var url;
 var xmlhttp;
+var accuracy;
 
 document.getElementById("searchBar")
     .addEventListener("keyup", function(event) {
@@ -12,7 +13,9 @@ document.getElementById("searchBar")
     });
 
 function getQuery() {
-    query = document.getElementById("searchBar").value;
+    query = cleanInput(document.getElementById("searchBar").value);
+
+    console.log(query);
 
     if (document.getElementById("show").checked) {
         url = "https://api.themoviedb.org/3/search/tv?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&query=" + query + "&page=1"; // checked tvshows
@@ -22,9 +25,8 @@ function getQuery() {
     queryGenres(url);
 }
 
-function queryDiscover(url) {
-
-    // console.log(url);
+function cleanInput(query) {
+    return query.split(' ').join("%20"); // remove spaces from inputs to be used in urls
 }
 
 function queryGenres(url) {
@@ -47,13 +49,17 @@ function queryGenres(url) {
             genres = genres.filter(function(item, index, inputArray) { // remove duplicates from genres array
                 return inputArray.indexOf(item) == index;
             });
-            // console.log(genres.toString());
+            var toUseGenres = [];
+            for (var i = 0; i < accuracy; i++) {
+                toUseGenres.push(genres[Math.floor(Math.random() * genres.length)]);
+            }
             if (document.getElementById("show").checked) {
-                url = "https://api.themoviedb.org/3/discover/tv?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&sort_by=popularity.desc&page=1&timezone=America/New_York&with_genres=" + genres.toString() + "&include_null_first_air_dates=false";
+                url = "https://api.themoviedb.org/3/discover/tv?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&sort_by=popularity.desc&page=1&timezone=America/New_York&with_genres=" + toUseGenres.toString() + "&include_null_first_air_dates=false";
+                console.log(url);
                 queryShow(url);
             } else if (document.getElementById("movie").checked) {
-                console.log(genres.toString());
-                url = "https://api.themoviedb.org/3/discover/movie?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=" + genres.toString();
+                url = "https://api.themoviedb.org/3/discover/movie?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=" + toUseGenres.toString();
+                console.log(url);
                 queryMovie(url);
             }
         }
@@ -95,7 +101,6 @@ function queryShow(url) {
             document.getElementById("results").innerHTML = tableString;
         }
     };
-    // for querys with spaces, use %20 for each " "
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
@@ -132,7 +137,6 @@ function queryMovie(url) {
             document.getElementById("results").innerHTML = tableString;
         }
     };
-    // for querys with spaces, use %20 for each " "
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
