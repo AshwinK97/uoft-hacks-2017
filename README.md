@@ -4,6 +4,7 @@ Team Weeaboos - project for UofT Hacks 2017
 <ul>
 <li>Jasindan Rasalingam</li>
 <li>Tasawar Sattar</li>
+<li>Vethursan Jegatheeswaran</li>
 <li>Ashwin Kamalakannan</li>
 </ul>
 
