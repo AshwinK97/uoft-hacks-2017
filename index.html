@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Movie Finder</title>
+    <title>Watch this</title>
 
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -16,17 +16,29 @@
     <div class="background-image"></div>
     <div id="container" class="content">
         <div id="titleBack">
-            <h1 id="mainTitle">Movie Finder</h1>
+            <h1 id="mainTitle">Watch this!</h1>
         </div>
-        <div>
-            <input id="searchBar" type="text" name="search" placeholder="Search..">
+        <div id="search">
+            <input id="searchBar" type="text" name="search" placeholder="What do you like?">
             <button id="btn1" type="button" onclick="getQuery()" class="btn btn-md btn-primary" href="templates/home.html"> Find </button>
-            <!-- <button id="btn2" type="button" onclick="" class="btn btn-xs btn-warning" href="templates/home.html"> I Want More! </button> -->
         </div>
 
-        <table id="results">
-
-        </table>
+        <div id="recommendations">
+            <table id="results">
+                <tr>
+                    <th>Name</th>
+                    <th>Date aired</th>
+                </tr>
+                <tr>
+                    <td>Batman vs Superman: Dawn of justice</td>
+                    <td>2016</td>
+                </tr>
+                <tr>
+                    <td>Captian America: civil war</td>
+                    <td>2015</td>
+                </tr>
+            </table>
+        </div>
 
     </div>
 
@@ -38,9 +50,7 @@
         function getQuery() {
             query = document.getElementById("searchBar").value;
             url = "https://api.themoviedb.org/3/search/movie?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&query=" + query + "&page=1&include_adult=false";
-            // url = "https://api.themoviedb.org/3/search/movie?api_key=d24b4ad0f87a2e534813890035cc59e4&language=en-US&query=avatar&page=1&include_adult=false";
             queryDatabase(url);
-            // window.alert("you typed " + query);
         }
 
         function queryDatabase(url) {
@@ -53,10 +63,21 @@
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     var jsonObj = JSON.parse(this.responseText);
-                    document.getElementById("results").innerHTML = "You searched for " + jsonObj.results[0].original_title;
+
+                    var tableString = "";
+                    for (var i=0; i<jsonObj.results.length; i++) {
+                        tableString += "<tr>";
+                        tableString += "<td>" + jsonObj.results[i].title + "</td>";
+                        if (jsonObj.results[i].release_date == "") {
+                            tableString += "<td> N/A </td>";
+                        }
+                        tableString += "<td>" + jsonObj.results[i].release_date + "</td>";
+                        tableString += "</tr>";
+                    }
+                    document.getElementById("results").innerHTML = tableString;
+
                 }
             };
-            // change the value of query with the search
             // for querys with spaces, use %20 for each " "
             xmlhttp.open("GET", url, true);
             xmlhttp.send();
