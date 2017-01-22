@@ -37,7 +37,7 @@
 }
 
 .cb-slideshow li:nth-child(1) span {
-    background-image: url(../res/background.jpg)
+    background-image: url(../res/background.jpg);
 }
 .cb-slideshow li:nth-child(2) span {
     background-image: url(../res/background2.jpg);
@@ -76,6 +76,6 @@
     20% { opacity: 0 }
     100% { opacity: 0 }
 }
-.no-cssanimations .cb-slideshow li span{
+.no-cssanimations .cb-slideshow li span {
 	opacity: 1;
 }
