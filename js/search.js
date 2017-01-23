@@ -114,8 +114,8 @@ function queryMovie(url) {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var jsonObj = JSON.parse(this.responseText);
-
-            var tableString = "<tr><th>Name</th><th>Date aired</th><th>Rating</th></tr>";
+			// Changed header style of tableString
+            var tableString = "<tr><th>Name</th><th>Date Aired</th><th>Rating</th></tr>";
             for (var i = 0; i < jsonObj.results.length; i++) {
                 if (jsonObj.results[i].title != "") {
                     tableString += "<tr>";
